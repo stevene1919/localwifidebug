@@ -43,15 +43,35 @@ If building on an ARM64 Linux host, you must provide a native `aapt2` binary at 
 
 ## Installation
 
-1.  Connect via ADB to your TV (replace with your TV's IP address):
+This section details the one-time setup required on your Android TV device to enable wireless debugging and install the app.
+
+1.  **Enable Developer Options on your Android TV:**
+    *   Go to "Settings" -> "System" -> "About".
+    *   Scroll down and repeatedly click on "Build" (7 times) until you see a message that "You are now a developer!".
+
+2.  **Enable Wireless Debugging:**
+    *   Go back to "Settings" -> "System" -> "Developer Options".
+    *   Find and enable "Wireless debugging". Make a note of the IP address and pairing code displayed.
+
+3.  **Pair your device (if required):**
+    If this is the first time you're using wireless ADB with this device, you may need to pair it. Use the IP address and pairing code from Step 2.
+    ```bash
+    adb pair <TV_IP_ADDRESS>:<PORT_FROM_TV>
+    # You will be prompted to enter the pairing code shown on your TV.
+    ```
+    *(Note: Your PC's ADB client must be recent enough to support `adb pair`)*
+
+4.  **Connect via ADB to your TV** (replace with your TV's IP address):
     ```bash
     adb connect 192.168.50.10:5555
     ```
-2.  Install the APK:
+    *(Note: The above `adb tcpip 5555` command is handled by Home Assistant after the app reports the port)*
+
+5.  **Install the APK:**
     ```bash
     adb install app/build/outputs/apk/debug/app-debug.apk
     ```
-3.  **Grant Critical Permissions:**
+6.  **Grant Critical Permissions:**
     These permissions cannot be granted via the UI and must be applied via ADB:
     ```bash
     # Allow the app to toggle Wireless Debugging
