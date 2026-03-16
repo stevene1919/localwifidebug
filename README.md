@@ -32,6 +32,29 @@ git clone https://github.com/stevene1919/localwifidebug.git
 cd localwifidebug
 ```
 
+## Build Prerequisites
+Before building the project, ensure you have the following installed:
+
+1.  **Java Development Kit (JDK) 17:**
+    - On Linux (Ubuntu/Debian): `sudo apt install openjdk-17-jdk`
+    - On macOS: `brew install openjdk@17`
+    - On Windows: Download from Oracle or Adoptium.
+    - Set `JAVA_HOME` environment variable to your JDK path.
+
+2.  **Android SDK:**
+    - Download and install the [Android Command Line Tools](https://developer.android.com/studio#command-line-tools-only).
+    - Use `sdkmanager` to install required components:
+      ```bash
+      sdkmanager "platforms;android-34" "build-tools;34.0.0" "extras;google;m2repository" "extras;android;m2repository"
+      ```
+    - Set `ANDROID_HOME` environment variable (e.g., `export ANDROID_HOME=$HOME/android-sdk`).
+
+3.  **Gradle:**
+    - If `gradlew` is not present in the root directory, you can install Gradle manually:
+    - On Linux: `sudo apt install gradle`
+    - On macOS: `brew install gradle`
+    - Or generate the wrapper if you have Gradle installed: `gradle wrapper`.
+
 ## Building the APK
 
 ### Standard Environment
