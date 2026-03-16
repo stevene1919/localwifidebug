@@ -82,9 +82,12 @@ This section details the one-time setup required on your Android TV device to en
     ```
 
 ## Configuration
-The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebugTileService.kt`:
-- **Webhook URL:** `http://192.168.50.200:8123/api/webhook/ccwgt_port`
-- **Device ID:** `ccwgt`
+**Important:** The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebugTileService.kt` and **MUST be modified** for your specific Home Assistant environment:
+-   **Webhook URL:** `http://192.168.50.200:8123/api/webhook/ccwgt_port`
+-   **Device ID:** `ccwgt`
+
+You will need to update these values in the source code to match your Home Assistant instance's IP address and desired webhook ID/device identifier.
+
 
 ## Home Assistant Integration
 
