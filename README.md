@@ -82,6 +82,20 @@ This section details the one-time setup required on your Android TV device to en
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
     ```
 
+7.  **Grant Extra Permissions (Manifest Summary):**
+    For reference, the app uses the following permissions. Ensure the "Secure" ones are granted via the commands above:
+    ```bash
+    # <uses-permission android:name="android.permission.INTERNET" />
+    # <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    # <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    # <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    # Granting Secure Settings:
+    adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
+    # Granting Post Notifications:
+    adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
+    ```
+
 ## Configuration
 **Important:** The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebugTileService.kt` and **MUST be modified** for your specific Home Assistant environment:
 -   **Webhook URL:** `http://192.168.50.200:8123/api/webhook/ccwgt_port`
