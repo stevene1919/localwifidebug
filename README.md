@@ -90,10 +90,10 @@ action:
 ```
 
 ### 2. Shell Command
-Add this to your `configuration.yaml` to allow HA to reconnect to the new port:
+Add this to your `configuration.yaml`. This command sequence uses the random port to establish a temporary connection, then immediately instructs the device to restart ADB on the standard port `5555`.
 ```yaml
 shell_command:
-  reconnect_adb_tv: "adb connect <TV_IP_ADDRESS>:{{ port }}"
+  reconnect_adb_tv: "adb connect <TV_IP_ADDRESS>:{{ port }} && adb -s <TV_IP_ADDRESS>:{{ port }} tcpip 5555 && adb disconnect <TV_IP_ADDRESS>:{{ port }}"
 ```
 *(Note: Ensure the `adb` binary is installed and available to the Home Assistant process/container)*
 
