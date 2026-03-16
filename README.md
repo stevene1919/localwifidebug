@@ -12,6 +12,11 @@ This app allows for a "one-click" sync that:
 2.  Discovers the current random port using mDNS.
 3.  Reports that port to a Home Assistant webhook.
 
+## How it Works
+The following diagram illustrates the automated sequence from launching the app to establishing a stable ADB connection on port 5555:
+
+![Technical Flowchart](flowchart.png)
+
 ## Key Features
 - **Zero-Touch Execution:** The app performs its task and closes itself immediately upon launch.
 - **mDNS Service Discovery:** Uses `NsdManager` to find the `_adb-tls-connect._tcp.` service locally.
