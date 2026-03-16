@@ -61,11 +61,10 @@ This section details the one-time setup required on your Android TV device to en
     ```
     *(Note: Your PC's ADB client must be recent enough to support `adb pair`)*
 
-4.  **Connect via ADB to your TV** (replace with your TV's IP address):
+4.  **Connect via ADB to your TV** (replace with your TV's IP address and the random port from Step 2):
     ```bash
-    adb connect 192.168.50.10:5555
+    adb connect 192.168.50.10:<RANDOM_PORT_FROM_TV>
     ```
-    *(Note: The above `adb tcpip 5555` command is handled by Home Assistant after the app reports the port)*
 
 5.  **Install the APK:**
     ```bash
