@@ -73,13 +73,7 @@ This section details the one-time setup required on your Android TV device to en
     ```
 
 6.  **Grant Critical Permissions:**
-    The application requires the following Android permissions (declared in `AndroidManifest.xml`):
-    - `android.permission.INTERNET`: For sending webhook requests to Home Assistant (Auto-granted).
-    - `android.permission.ACCESS_NETWORK_STATE`: To check network connectivity (Auto-granted).
-    - `android.permission.WRITE_SECURE_SETTINGS`: To enable/disable Wireless Debugging. **Must be granted via ADB.**
-    - `android.permission.POST_NOTIFICATIONS`: To show notifications on Android 13+. **Must be granted via ADB.**
-
-    Run these commands to grant the required secure permissions:
+    Run these commands via ADB to grant the necessary secure permissions declared in the manifest (`WRITE_SECURE_SETTINGS` and `POST_NOTIFICATIONS`):
     ```bash
     # Allow the app to toggle Wireless Debugging
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
