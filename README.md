@@ -82,17 +82,12 @@ This section details the one-time setup required on your Android TV device to en
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
     ```
 
-7.  **Grant Extra Permissions (Manifest Summary):**
-    For reference, the app uses the following permissions. Ensure the "Secure" ones are granted via the commands above:
+7.  **Grant Extra Permissions (Full Command Set):**
+    While some are auto-granted, you can ensure all permissions are set using these commands:
     ```bash
-    # <uses-permission android:name="android.permission.INTERNET" />
-    # <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    # <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions" />
-    # <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    # Granting Secure Settings:
+    adb shell pm grant com.enuff.steven.localwifidebug android.permission.INTERNET
+    adb shell pm grant com.enuff.steven.localwifidebug android.permission.ACCESS_NETWORK_STATE
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
-    # Granting Post Notifications:
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
     ```
 
