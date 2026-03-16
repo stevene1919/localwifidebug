@@ -3,7 +3,11 @@
 **Local WiFi Debug** is a specialized Android application (Kotlin) designed to automate the synchronization of the **Wireless Debugging** port on Android TV devices (like Chromecast with Google TV) with **Home Assistant**.
 
 ## Why this exists
-The Android TV Integration in Home Assistant often loses connection when the device restarts or the random Wireless Debugging port changes. This app allows for a "one-click" sync that:
+The Android TV (ADB) Integration in Home Assistant often loses connection because:
+1.  **Wireless Debugging is disabled on reboot** by the Android system.
+2.  **The port is randomly assigned** each time Wireless Debugging is toggled on.
+
+This app allows for a "one-click" sync that:
 1.  Enables Wireless Debugging (if not already on).
 2.  Discovers the current random port using mDNS.
 3.  Reports that port to a Home Assistant webhook.
@@ -61,19 +65,31 @@ The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebug
 ## Home Assistant Integration
 
 ### 1. Webhook Automation
-Create an automation in HA to handle the incoming port:
+Create an automation in HA to handle the incoming port and trigger a reconnection:
 ```yaml
-alias: Update ADB Port
+alias: "Update ADB Port for TV"
+description: "Updates the ADB port when the WiFi Debug app reports a new one"
 trigger:
   - platform: webhook
     webhook_id: ccwgt_port
+    allowed_methods:
+      - POST
+    local_only: true
 action:
-  - service: persistent_notification.create
+  - service: shell_command.reconnect_adb_tv
     data:
-      message: "New ADB Port for TV: {{ trigger.json.port }}"
+      port: "{{ trigger.json.port }}"
 ```
 
-### 2. Launch Script
+### 2. Shell Command
+Add this to your `configuration.yaml` to allow HA to reconnect to the new port:
+```yaml
+shell_command:
+  reconnect_adb_tv: "adb connect <TV_IP_ADDRESS>:{{ port }}"
+```
+*(Note: Ensure the `adb` binary is installed and available to the Home Assistant process/container)*
+
+### 3. Launch Script
 Add this to `scripts.yaml` to trigger the sync from your HA dashboard:
 ```yaml
 sync_local_wifi_debug:
