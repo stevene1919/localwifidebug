@@ -3,7 +3,7 @@
 **Local WiFi Debug** is a specialized Android application (Kotlin) designed to automate the synchronization of the **Wireless Debugging** port on Android TV devices (like Chromecast with Google TV) with **Home Assistant**.
 
 ## Why this exists
-The Android TV (ADB) Integration in Home Assistant often loses connection because:
+The [Android Debug Bridge (ADB) Integration](https://www.home-assistant.io/integrations/androidtv/) in Home Assistant often loses connection because:
 1.  **Wireless Debugging is disabled on reboot** by the Android system.
 2.  **The port is randomly assigned** each time Wireless Debugging is toggled on.
 
@@ -27,7 +27,7 @@ The following diagram illustrates the automated sequence from launching the app 
 - **Static IP Address:** It is highly recommended to assign a static IP address (or DHCP reservation) to your Android TV device for reliable ADB connections.
 - Android 11+ (Required for Wireless Debugging).
 - ADB access to grant initial secure permissions.
-- **Home Assistant Android TV Remote Integration:** Required to remotely launch the app on the TV.
+- **[Home Assistant Android TV Remote Integration](https://www.home-assistant.io/integrations/androidtv_remote/):** Required to remotely launch the app on the TV.
 - Home Assistant with an active Webhook automation.
 
 ## Cloning the Repository
