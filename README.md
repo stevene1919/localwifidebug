@@ -69,7 +69,10 @@ If you are building on a standard x86_64 machine:
 ```
 
 ### ARM64 Environment (e.g., Raspberry Pi)
-If building on an ARM64 Linux host, you must provide a native `aapt2` binary at the project root as the standard SDK binary is x86 only:
+If building on an ARM64 Linux host, you must provide a native `aapt2` binary at the project root as the standard SDK binary is x86 only. You can download pre-compiled ARM64 binaries from community-maintained repositories:
+-   **[ReVanced AAPT2 Releases](https://github.com/ReVanced/aapt2/releases)** (Recommended)
+-   **[lzhiyong/android-sdk-tools](https://github.com/lzhiyong/android-sdk-tools)**
+
 1.  Place a native `aapt2` binary in the root directory.
 2.  Run the build:
     ```bash
