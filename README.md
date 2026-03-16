@@ -71,8 +71,15 @@ This section details the one-time setup required on your Android TV device to en
     ```bash
     adb install app/build/outputs/apk/debug/app-debug.apk
     ```
+
 6.  **Grant Critical Permissions:**
-    These permissions cannot be granted via the UI and must be applied via ADB:
+    The application requires the following Android permissions (declared in `AndroidManifest.xml`):
+    - `android.permission.INTERNET`: For sending webhook requests to Home Assistant (Auto-granted).
+    - `android.permission.ACCESS_NETWORK_STATE`: To check network connectivity (Auto-granted).
+    - `android.permission.WRITE_SECURE_SETTINGS`: To enable/disable Wireless Debugging. **Must be granted via ADB.**
+    - `android.permission.POST_NOTIFICATIONS`: To show notifications on Android 13+. **Must be granted via ADB.**
+
+    Run these commands to grant the required secure permissions:
     ```bash
     # Allow the app to toggle Wireless Debugging
     adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
@@ -133,13 +140,6 @@ sync_local_wifi_debug:
 
 ## License
 MIT
-
-## Permissions
-The application requires the following Android permissions, declared in `AndroidManifest.xml`:
--   `android.permission.INTERNET`: For sending webhook requests to Home Assistant.
--   `android.permission.ACCESS_NETWORK_STATE`: To check network connectivity.
--   `android.permission.WRITE_SECURE_SETTINGS`: To enable/disable Wireless Debugging. **This permission must be granted manually via ADB.**
--   `android.permission.POST_NOTIFICATIONS`: To show notifications on Android 13+. **This permission must be granted manually via ADB.**
 
 ## Disclaimer
 This project was coded using Gemini CLI. Your mileage may vary.
