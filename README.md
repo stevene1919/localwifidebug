@@ -105,3 +105,6 @@ sync_local_wifi_debug:
 
 ## License
 MIT
+
+## Disclaimer
+This project was coded using Gemini CLI. Your mileage may vary.
