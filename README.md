@@ -25,6 +25,13 @@ This app allows for a "one-click" sync that:
 - **Home Assistant Android TV Remote Integration:** Required to remotely launch the app on the TV.
 - Home Assistant with an active Webhook automation.
 
+## Cloning the Repository
+To get started, clone this repository to your local machine:
+```bash
+git clone https://github.com/stevene1919/localwifidebug.git
+cd localwifidebug
+```
+
 ## Building the APK
 
 ### Standard Environment
