@@ -179,8 +179,14 @@ sync_local_wifi_debug:
         activity: "com.enuff.steven.localwifidebug/.MainActivity"
 ```
 
+## TODO
+- **Test Quick Settings Tile:** Verify functionality across different Android TV versions (it may not currently work as expected).
+- **Configuration Interface:** Replace hardcoded values with a user-friendly settings UI for Webhook URL and Device ID.
+- **App Visibility:** Fix the issue where the app does not appear in the standard launcher/app list (currently only visible under Settings -> Apps).
+- **Versioning & Signing:** Implement proper app versioning and automated signing for official releases.
+
 ## License
 MIT
 
 ## Disclaimer
-This project was coded using Gemini CLI. Your mileage may vary.
+This project is provided "as is" without warranty of any kind. Feel free to use, modify, and distribute it. No formal support is offered, and your mileage may vary.
