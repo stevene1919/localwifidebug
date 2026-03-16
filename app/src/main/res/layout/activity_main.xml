@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WiFi Debug Status: Unknown"
+        android:textSize="18sp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/port_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discovered Port: --"
+        android:textSize="16sp"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btn_toggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable &amp; Report Port"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_report_only"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Report Current Port Only"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note: Requires WRITE_SECURE_SETTINGS grant via ADB:\n\nadb shell pm grant com.example.localwifidebug android.permission.WRITE_SECURE_SETTINGS"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:alpha="0.7" />
+
+</LinearLayout>
