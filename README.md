@@ -134,5 +134,12 @@ sync_local_wifi_debug:
 ## License
 MIT
 
+## Permissions
+The application requires the following Android permissions, declared in `AndroidManifest.xml`:
+-   `android.permission.INTERNET`: For sending webhook requests to Home Assistant.
+-   `android.permission.ACCESS_NETWORK_STATE`: To check network connectivity.
+-   `android.permission.WRITE_SECURE_SETTINGS`: To enable/disable Wireless Debugging. **This permission must be granted manually via ADB.**
+-   `android.permission.POST_NOTIFICATIONS`: To show notifications on Android 13+. **This permission must be granted manually via ADB.**
+
 ## Disclaimer
 This project was coded using Gemini CLI. Your mileage may vary.
