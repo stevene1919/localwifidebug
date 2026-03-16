@@ -87,6 +87,8 @@ The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebug
 
 ## Home Assistant Integration
 
+*(Important Note: If your Android TV device requires ADB pairing, you must also perform the `adb pair` command from the machine where your Home Assistant instance runs its ADB shell commands. This is typically a one-time setup.)*
+
 ### 1. Webhook Automation
 Create an automation in HA to handle the incoming port and trigger a reconnection:
 ```yaml
