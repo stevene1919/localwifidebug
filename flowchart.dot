@@ -1,0 +1,37 @@
+digraph G {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif", shape=box, style=filled, fillcolor=lightgray]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+
+    subgraph cluster_ha {
+        label = "Home Assistant";
+        style=dashed;
+        color=blue;
+        ha_trigger [label="Launch Script\n(remote.turn_on)", fillcolor=lightblue]
+        ha_webhook [label="Webhook Received\n(Port Found)", fillcolor=lightblue]
+        ha_shell [label="Shell Command:\nadb connect :port\nadb tcpip 5555", fillcolor=yellow]
+        ha_integration [label="ADB Integration\nConnects to 5555", fillcolor=green]
+    }
+
+    subgraph cluster_tv {
+        label = "Android TV";
+        style=dashed;
+        color=darkgreen;
+        tv_app [label="App Starts\nEnables Debugging", fillcolor=lightgreen]
+        tv_mdns [label="mDNS Discovery\nFinds Random Port", fillcolor=lightgreen]
+        tv_send [label="Send Webhook\n(JSON: port, id)", fillcolor=lightgreen]
+        tv_reset [label="ADB Daemon Reset\n(Listener on 5555)", fillcolor=yellow]
+        tv_finish [label="App Closes\nfinish()", fillcolor=lightgrey]
+    }
+
+    // Connections
+    ha_trigger -> tv_app [label="Remote Intent"]
+    tv_app -> tv_mdns
+    tv_mdns -> tv_send
+    tv_send -> ha_webhook [label="HTTP POST"]
+    ha_webhook -> ha_shell
+    ha_shell -> tv_reset [label="ADB Protocol"]
+    tv_reset -> ha_integration [label="Standard Port Ready"]
+    tv_send -> tv_finish
+}
