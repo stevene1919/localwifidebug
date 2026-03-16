@@ -19,6 +19,7 @@ This app allows for a "one-click" sync that:
 - **Visual Feedback:** Provides system-level notifications and Toast messages on the TV.
 
 ## Requirements
+- **Static IP Address:** It is highly recommended to assign a static IP address (or DHCP reservation) to your Android TV device for reliable ADB connections.
 - Android 11+ (Required for Wireless Debugging).
 - ADB access to grant initial secure permissions.
 - **Home Assistant Android TV Remote Integration:** Required to remotely launch the app on the TV.
@@ -63,7 +64,7 @@ This section details the one-time setup required on your Android TV device to en
 
 4.  **Connect via ADB to your TV** (replace with your TV's IP address and the random port from Step 2):
     ```bash
-    adb connect 192.168.50.10:<RANDOM_PORT_FROM_TV>
+    `adb connect <TV_IP_ADDRESS>:<RANDOM_PORT_FROM_TV>`
     ```
 
 5.  **Install the APK:**
