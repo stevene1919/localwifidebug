@@ -43,15 +43,11 @@ If building on an ARM64 Linux host, you must provide a native `aapt2` binary at 
 
 ## Installation
 
-1.  Enable ADB over TCP/IP on your TV. This typically needs to be done once via a USB connection initially, or if the device restarts.
-    ```bash
-    adb tcpip 5555
-    ```
-2.  Connect via ADB to your TV (replace with your TV's IP address):
+1.  Connect via ADB to your TV (replace with your TV's IP address):
     ```bash
     adb connect 192.168.50.10:5555
     ```
-3.  Install the APK:
+2.  Install the APK:
     ```bash
     adb install app/build/outputs/apk/debug/app-debug.apk
     ```
@@ -90,7 +86,7 @@ action:
 ```
 
 ### 2. Shell Command
-Add this to your `configuration.yaml`. This command sequence uses the random port to establish a temporary connection, then immediately instructs the device to restart ADB on the standard port `5555`.
+Add this to your `configuration.yaml`. This command sequence uses the random port reported by the app to establish a temporary ADB connection, then instructs the TV to restart its ADB daemon and listen on the standard port `5555` via `adb -s <TV_IP_ADDRESS>:{{ port }} tcpip 5555`.
 ```yaml
 shell_command:
   reconnect_adb_tv: "adb connect <TV_IP_ADDRESS>:{{ port }} && adb -s <TV_IP_ADDRESS>:{{ port }} tcpip 5555 && adb disconnect <TV_IP_ADDRESS>:{{ port }}"
