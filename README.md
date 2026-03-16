@@ -21,6 +21,7 @@ This app allows for a "one-click" sync that:
 ## Requirements
 - Android 11+ (Required for Wireless Debugging).
 - ADB access to grant initial secure permissions.
+- **Home Assistant Android TV Remote Integration:** Required to remotely launch the app on the TV.
 - Home Assistant with an active Webhook automation.
 
 ## Building the APK
@@ -90,14 +91,14 @@ shell_command:
 *(Note: Ensure the `adb` binary is installed and available to the Home Assistant process/container)*
 
 ### 3. Launch Script
-Add this to `scripts.yaml` to trigger the sync from your HA dashboard:
+Add this to `scripts.yaml` to trigger the sync from your HA dashboard. This uses the `android_tv_remote` integration to start the application:
 ```yaml
 sync_local_wifi_debug:
   alias: "Sync Local WiFi Debug"
   sequence:
     - service: remote.turn_on
       target:
-        entity_id: remote.steven_tv
+        entity_id: remote.steven_tv  # Entity from Android TV Remote integration
       data:
         activity: "com.enuff.steven.localwifidebug/.MainActivity"
 ```
