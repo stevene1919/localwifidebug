@@ -37,11 +37,21 @@
         android:layout_marginBottom="32dp" />
 
     <TextView
+        android:id="@+id/version_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Note: Requires WRITE_SECURE_SETTINGS grant via ADB:\n\nadb shell pm grant com.example.localwifidebug android.permission.WRITE_SECURE_SETTINGS"
+        android:text="Version 1.0.0"
+        android:textSize="12sp"
+        android:layout_marginTop="24dp"
+        android:alpha="0.5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note: Requires WRITE_SECURE_SETTINGS grant via ADB:\n\nadb shell pm grant com.enuff.localwifidebug android.permission.WRITE_SECURE_SETTINGS"
         android:textSize="12sp"
         android:gravity="center"
-        android:alpha="0.7" />
+        android:alpha="0.7"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>

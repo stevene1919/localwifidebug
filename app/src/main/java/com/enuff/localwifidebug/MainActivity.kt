@@ -1,4 +1,4 @@
-package com.enuff.steven.localwifidebug
+package com.enuff.localwifidebug
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.lifecycleScope
-import com.enuff.steven.localwifidebug.databinding.ActivityMainBinding
+import com.enuff.localwifidebug.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,8 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val TAG = "WiFiDebugReporter"
+    // Project home page
+    private val GITHUB_URL = "https://github.com/stevene1919/localwifidebug"
     private val SERVICE_TYPE = "_adb-tls-connect._tcp."
-    private val WEBHOOK_URL = "http://192.168.50.200:8123/api/webhook/ccwgt_port"
+    private val WEBHOOK_URL = BuildConfig.WEBHOOK_URL
     private val CHANNEL_ID = "wifi_debug_status"
     
     private lateinit var nsdManager: NsdManager
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
         createNotificationChannel()
+
+        binding.versionText.text = "Version ${BuildConfig.VERSION_NAME}"
 
         // Auto-run logic
         lifecycleScope.launch {
@@ -151,7 +155,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val json = JSONObject().apply {
                     put("port", port)
-                    put("device_id", "ccwgt")
+                    put("device_id", BuildConfig.DEVICE_ID)
                 }
                 
                 val request = Request.Builder()

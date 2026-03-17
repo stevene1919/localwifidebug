@@ -2,14 +2,19 @@
 
 This project is a native Android (Kotlin) application designed for Google/Android TV devices. It autonomously enables Wireless Debugging, discovers the assigned random port, and reports it to a Home Assistant webhook.
 
+## Core Mandates
+- **No Autonomous Sync:** Do NOT sync, push, or commit changes to GitHub unless specifically instructed by the user in the current turn.
+- **No Autonomous Builds:** Do NOT run build commands (e.g., `./gradlew assembleDebug`, `gradle build`) unless specifically instructed by the user in the current turn.
+- **Security & Secrets:** NEVER upload or commit secure information (keystores, passwords, API tokens, webhooks, or private keys) to GitHub. All sensitive credentials must remain in local, ignored files.
+
 ## Objective
 Enable a "one-click" synchronization of the Android Wireless Debugging port to Home Assistant, allowing the HA Android TV integration (ADB) to reconnect without manual intervention when the port changes.
 
 ## App Details
-- **App Name:** Local WiFi Debug
-- **Package ID:** `com.enuff.steven.localwifidebug`
+- **App Name:** Local WiFi Debug Sync
+- **Package ID:** `com.enuff.localwifidebug`
 - **Main Activity:** `.MainActivity`
-- **Webhook Endpoint:** `http://192.168.50.200:8123/api/webhook/ccwgt_port`
+- **Webhook Endpoint:** Defined in `local.properties` as `WEBHOOK_URL`.
 - **Device ID Reported:** `ccwgt`
 
 ## Key Features
@@ -18,7 +23,6 @@ Enable a "one-click" synchronization of the Android Wireless Debugging port to H
 - **mDNS Discovery:** Uses `NsdManager` to listen for the `_adb-tls-connect._tcp.` service.
 - **Visual Feedback:** Shows system notifications and Toast messages on the TV upon success/failure.
 - **Auto-Exit:** The app closes itself (calls `finish()`) after a successful report to minimize UI intrusion.
-- **Quick Settings Tile:** Includes a toggle tile for supported Android devices.
 
 ## Installation & Deployment (via ADB)
 
@@ -41,10 +45,10 @@ adb install /opt/usb/steven/projects/localwifidebug/app/build/outputs/apk/debug/
 Run these commands once after installation to allow the app to function:
 ```bash
 # Allow toggling system settings (Wireless Debugging)
-adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant com.enuff.localwifidebug android.permission.WRITE_SECURE_SETTINGS
 
 # Allow showing notifications on Android 13+
-adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
+adb shell pm grant com.enuff.localwifidebug android.permission.POST_NOTIFICATIONS
 ```
 
 ## Home Assistant Integration
@@ -52,15 +56,15 @@ adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIF
 ### Script
 Add this to your `scripts.yaml` to launch the app from HA:
 ```yaml
-sync_local_wifi_debug:
-  alias: "Sync Local WiFi Debug"
+local_wifi_debug_sync:
+  alias: "Local WiFi Debug Sync"
   description: "Launches the WiFi Debug app to report its random port to HA"
   sequence:
     - service: remote.turn_on
       target:
         entity_id: remote.steven_tv
       data:
-        activity: "com.enuff.steven.localwifidebug"
+        activity: "com.enuff.localwifidebug"
   mode: single
   icon: mdi:wifi-sync
 ```

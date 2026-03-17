@@ -15,3 +15,5 @@
 .cxx
 local.properties
 aapt2
+gradlew
+*.keystore

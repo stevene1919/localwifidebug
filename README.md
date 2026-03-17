@@ -1,6 +1,6 @@
-# Local WiFi Debug
+# Local WiFi Debug Sync
 
-**Local WiFi Debug** is a specialized Android application (Kotlin) designed to automate the synchronization of the **Wireless Debugging** port on Android TV devices (like Chromecast with Google TV) with **Home Assistant**.
+**Local WiFi Debug Sync** is a specialized Android application (Kotlin) designed to automate the synchronization of the **Wireless Debugging** port on Android TV devices (like Chromecast with Google TV) with **Home Assistant**.
 
 ## Why this exists
 The [Android Debug Bridge (ADB) Integration](https://www.home-assistant.io/integrations/androidtv/) in Home Assistant often loses connection because:
@@ -20,7 +20,6 @@ The following diagram illustrates the automated sequence from launching the app 
 ## Key Features
 - **Zero-Touch Execution:** The app performs its task and closes itself immediately upon launch.
 - **mDNS Service Discovery:** Uses `NsdManager` to find the `_adb-tls-connect._tcp.` service locally.
-- **Quick Settings Tile:** Includes a "WiFi Debug Sync" tile for devices that support it.
 - **Visual Feedback:** Provides system-level notifications and Toast messages on the TV.
 
 ## Requirements
@@ -114,27 +113,27 @@ This section details the one-time setup required on your Android TV device to en
     Run these commands via ADB to grant the necessary secure permissions declared in the manifest (`WRITE_SECURE_SETTINGS` and `POST_NOTIFICATIONS`):
     ```bash
     # Allow the app to toggle Wireless Debugging
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
+    adb shell pm grant com.enuff.localwifidebug android.permission.WRITE_SECURE_SETTINGS
 
     # Allow notifications (Android 13+)
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
+    adb shell pm grant com.enuff.localwifidebug android.permission.POST_NOTIFICATIONS
     ```
 
 7.  **Grant Extra Permissions (Full Command Set):**
     While some are auto-granted, you can ensure all permissions are set using these commands:
     ```bash
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.INTERNET
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.ACCESS_NETWORK_STATE
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.WRITE_SECURE_SETTINGS
-    adb shell pm grant com.enuff.steven.localwifidebug android.permission.POST_NOTIFICATIONS
+    adb shell pm grant com.enuff.localwifidebug android.permission.INTERNET
+    adb shell pm grant com.enuff.localwifidebug android.permission.ACCESS_NETWORK_STATE
+    adb shell pm grant com.enuff.localwifidebug android.permission.WRITE_SECURE_SETTINGS
+    adb shell pm grant com.enuff.localwifidebug android.permission.POST_NOTIFICATIONS
     ```
 
 ## Configuration
-**Important:** The following values are currently hardcoded in `MainActivity.kt` and `WiFiDebugTileService.kt` and **MUST be modified** for your specific Home Assistant environment:
--   **Webhook URL:** `http://192.168.50.200:8123/api/webhook/ccwgt_port`
--   **Device ID:** `ccwgt`
+**Important:** The following values must be configured for your specific Home Assistant environment:
+-   **Webhook URL:** Set via `WEBHOOK_URL` in `local.properties`.
+-   **Device ID:** `ccwgt` (currently hardcoded in source)
 
-You will need to update these values in the source code to match your Home Assistant instance's IP address and desired webhook ID/device identifier.
+You will need to update `local.properties` with your Home Assistant instance's IP address and desired webhook ID.
 
 
 ## Home Assistant Integration
@@ -169,18 +168,17 @@ shell_command:
 ### 3. Launch Script
 Add this to `scripts.yaml` to trigger the sync from your HA dashboard. This uses the `android_tv_remote` integration to start the application:
 ```yaml
-sync_local_wifi_debug:
-  alias: "Sync Local WiFi Debug"
+local_wifi_debug_sync:
+  alias: "Local WiFi Debug Sync"
   sequence:
     - service: remote.turn_on
       target:
         entity_id: remote.steven_tv  # Entity from Android TV Remote integration
       data:
-        activity: "com.enuff.steven.localwifidebug/.MainActivity"
+        activity: "com.enuff.localwifidebug/.MainActivity"
 ```
 
 ## TODO
-- **Test Quick Settings Tile:** Verify functionality across different Android TV versions (it may not currently work as expected).
 - **Configuration Interface:** Replace hardcoded values with a user-friendly settings UI for Webhook URL and Device ID.
 - **App Visibility:** Fix the issue where the app does not appear in the standard launcher/app list (currently only visible under Settings -> Apps).
 - **Versioning & Signing:** Implement proper app versioning and automated signing for official releases.
